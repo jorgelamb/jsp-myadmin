@@ -22,13 +22,13 @@
 <%@ page import="java.util.regex.*" %>
 <%@ include file="login.jsp"%>
 <%
-String db=request.getParameter("db");
+String db=request.getParameter("db");  
 String table=request.getParameter("table");
 String query1=request.getParameter("textarea");
 String newtblname=request.getParameter("table");
 String newtblfields=request.getParameter("newtblfields");
 String path = request.getContextPath();
-ResultSet rst = null;
+ResultSet rst = null ;
 ResultSetMetaData rsmd = null;
 %>
 
@@ -68,27 +68,33 @@ ResultSetMetaData rsmd = null;
 			%>
 
 			<script type="text/javascript">success.show("Table: <%= newtblname%> created successfully!")</script>
-
-		<% }
+					
+		<% } 
 		Integer modifiedRows = null;
 		String columnnm,record;
 		PreparedStatement pstm1 = con.prepareStatement("USE "+db);
 		rst = pstm1.executeQuery();
 
 		if (query1 == null || query1 == "" ) {
-			pstm1 = con.prepareStatement("SELECT * FROM "+table+" LIMIT 50");
+			pstm1 = con.prepareStatement("SELECT * FROM "+table);
 		} else {
 			pstm1 = con.prepareStatement(query1);
 		}
 
-		if(query1 != null && ( query1.contains("INSERT INTO") || query1.contains("DELETE FROM") || query1.contains("UPDATE ") )){
+		boolean isUpdate = false;
+		if(query1 != null) {
+			String filteredQuery = query1.trim().toLowerCase();
+			isUpdate = filteredQuery.startsWith("insert") || filteredQuery.startsWith("delete") || filteredQuery.startsWith("update");
+		}
+
+		if(isUpdate) {
 			modifiedRows = pstm1.executeUpdate();
 		} else {
 			rst= pstm1.executeQuery();
 			rsmd = rst.getMetaData();
 		}
 
-		if (modifiedRows == null ) { %>
+		if (modifiedRows == null ) { %>	
 
 		<table class="table table-bordered">
 			<thead>
@@ -110,10 +116,10 @@ ResultSetMetaData rsmd = null;
 			<tr>
 				<td>
 					<a href="javascript:dRecord('deletedata.jsp?db=<%=db%>&table=<%=table%>&field=<%=rsmd.getColumnName(1) %>&val=<%=rst.getString(1) %>')" class="btn" title="Delete Record">
-						<i class="icon-trash" title="Delete Record"></i>
+						<i class="icon-trash" title="Delete Record"></i> 
 					</a>
-				</td>
-				<%
+				</td>           
+				<% 
 				for(int i=1;i<=rsmd.getColumnCount(); i++) {
 					record=rst.getString(i); %>
 				<td>
@@ -166,7 +172,7 @@ ResultSetMetaData rsmd = null;
 				<div class="control-group text-right">
 					<button type="submit" name="insert" class="btn btn-primary">
 						<i class="icon-plus icon-white"></i> Insert
-					</button>
+					</button>	
 				</div>
 
 			</fieldset>
@@ -176,8 +182,8 @@ ResultSetMetaData rsmd = null;
 
 </div>
 
-<% } else { %>
+<% } else { %>	
 	Modified rows <%= modifiedRows %>
-<% } %>
+<% } %>	
 
 <%@ include file="common/footer.jsp"%>
