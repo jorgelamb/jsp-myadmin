@@ -51,7 +51,7 @@ String i="1";
 			</li>
 		</ul>
 
-		<form action="createdb.jsp?mknewdb=<%=i %>" method="post" name="newdbname" class="form-horizontal"> 
+		<form action="createdb.jsp?mknewdb=<%=i %>" method="post" name="newdbname" class="form-horizontal">
 
 			<fieldset>
 				<legend>Create new database</legend>

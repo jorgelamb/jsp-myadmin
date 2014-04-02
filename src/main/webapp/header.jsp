@@ -64,7 +64,7 @@ if(isTable){
 		</li>
 		<li class="<%= uri.equals("tabledata.jsp")? "active" : "" %>">
 			<a href="tabledata.jsp?server=localhost&db=mysql&table=user">
-				<%= !tableName.isEmpty() && !tableName.equals("user")  ? "Data" : "Privileges" %>
+				<%= !tableName.isEmpty() && !tableName.equals("user") ? "Data" : "Privileges" %>
 			</a>
 		</li>
 		<li class="dropdown">
@@ -79,7 +79,7 @@ if(isTable){
 							retcode = confirm('Are you sure, you want to delete the table with all the data?');
 							
 							if (retcode) {
-							    window.location.href = url;
+								window.location.href = url;
 							}
 						}
 
@@ -88,7 +88,7 @@ if(isTable){
 							retcode = confirm('Are you sure, you want to delete all the data in table?');
 
 							if (retcode) {
-							    window.location.href = url;
+								window.location.href = url;
 							}
 						}
 
@@ -96,8 +96,8 @@ if(isTable){
 							var retcode = true;
 							retcode = confirm('Are you sure, you want to delete the record?');
 
-							if (retcode {
-							    window.location.href = url;
+							if (retcode) {
+								window.location.href = url;
 							}
 						}
 					</script>
@@ -123,7 +123,7 @@ if(isTable){
 							retcode = confirm('Are you sure, you want to delete the database?');
 
 							if (retcode) {
-							   window.location.href = url;
+								window.location.href = url;
 							}
 						}
 					</script>

@@ -28,7 +28,7 @@ if(request.getMethod().equalsIgnoreCase("post")){
 	session.setAttribute("host",request.getParameter("host"));
 	session.setAttribute("port",request.getParameter("port"));
 	host = request.getParameter("host");
-} // Only if user enters the credentials otherwise it is available in the session object.		
+} // Only if user enters the credentials otherwise it is available in the session object.
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,13 +43,13 @@ if(request.getMethod().equalsIgnoreCase("post")){
 
 <% if(!host.isEmpty()){ %>
 
-	<frameset cols="240,*" rows="0" border="0" frameborder="no"> 
-	  <frame src="left.jsp" name="nav">
-	  <frame src="welcome.jsp" name="jspmain">  
+	<frameset cols="240,*" rows="0" border="0" frameborder="no">
+		<frame src="left.jsp" name="nav">
+		<frame src="welcome.jsp" name="jspmain">
 	</frameset>
 	<body></body>
 
-<% } else {  %>
+<% } else { %>
 
 	<body>
 		<script language="javascript">

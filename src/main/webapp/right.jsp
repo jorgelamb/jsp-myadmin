@@ -20,16 +20,16 @@
 %>
 <%@ page language="java" import="java.sql.*,java.lang.*" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ include file="login.jsp"%> 
-<%@ include file="functions.jsp"%>  
+<%@ include file="functions.jsp"%>
 <%
-String db=request.getParameter("db");  
+String db=request.getParameter("db");
 String server=request.getParameter("server");
 DatabaseMetaData dbmd = con.getMetaData();
 String[] tablelist= null;
 PreparedStatement pstm = con.prepareStatement("SHOW TABLES FROM "+db);
 ResultSet rst = pstm.executeQuery();
 tablelist= new String[mysql_num_rows(rst)];
-int num_tables=0;        
+int num_tables=0;
 while (rst.next()) {
 	tablelist[num_tables]=rst.getString(1);
 	num_tables++;
@@ -37,6 +37,8 @@ while (rst.next()) {
 %>
 <%@ include file="common/header.jsp"%>
 <%@ include file="header.jsp"%>
+
+<script language="javascript" src="js/confirm.js" type="text/javascript"></script>
 
 <div class="row-fluid">
 
@@ -74,10 +76,10 @@ while (rst.next()) {
 							<a href="createtbl.jsp?newtblname=<%=localtable %>&db=<%=db %>&alter=yes" class="btn" title="Alter table">
 								<i class="icon-wrench" title="Alter table"></i>
 							</a>
-							<a href="drop.jsp?table=<%=localtable %>&db=<%=db %>&empty=yes" class="btn" title="Truncate">
+							<a href="javascript:dData('drop.jsp?table=<%=localtable %>&db=<%=db %>&empty=yes')" class="btn" title="Truncate">
 								<i class="icon-trash" title="Truncate table"></i>
 							</a>
-							<a href="drop.jsp?table=<%=localtable %>&db=<%=db %>" class="btn" title="Drop table">
+							<a href="javascript:dTable('drop.jsp?table=<%=localtable %>&db=<%=db %>')" class="btn" title="Drop table">
 								<i class="icon-remove" title="Drop table"></i>
 							</a>
 
@@ -108,7 +110,7 @@ while (rst.next()) {
 						%>
 						<%=rows %>
 					</td>
-					<td>		 
+					<td>
 						<%
 						pstm = con.prepareStatement("USE "+db);
 						pstm.execute();
@@ -163,7 +165,7 @@ while (rst.next()) {
 </div>
 
 <script language="javascript"> 
-//  check for valid numeric strings  
+//  check for valid numeric strings
 function IsNumeric(value){
 	return (!/\D/.test(value));
 }
@@ -179,7 +181,7 @@ $('form[name="createtbl"]').bind('submit', function(event){
 		error.show("Please Enter Table Name!");
 		form.newtblname.focus();
 		valid = false;
-	}  
+	}
 	else if (IsNumeric(form.newtblfields.value) == false) {
 		error.show("Invalid Number of Table Columns!");
 		form.newtblfields.focus();
@@ -187,6 +189,6 @@ $('form[name="createtbl"]').bind('submit', function(event){
 	}
 	return valid;
 });
-</script> 
+</script>
 
 <%@ include file="common/footer.jsp"%>
