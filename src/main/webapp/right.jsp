@@ -20,16 +20,16 @@
 %>
 <%@ page language="java" import="java.sql.*,java.lang.*" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ include file="login.jsp"%> 
-<%@ include file="functions.jsp"%>
+<%@ include file="functions.jsp"%>  
 <%
-String db=request.getParameter("db");
+String db=request.getParameter("db");  
 String server=request.getParameter("server");
 DatabaseMetaData dbmd = con.getMetaData();
 String[] tablelist= null;
 PreparedStatement pstm = con.prepareStatement("SHOW TABLES FROM "+db);
 ResultSet rst = pstm.executeQuery();
 tablelist= new String[mysql_num_rows(rst)];
-int num_tables=0;
+int num_tables=0;        
 while (rst.next()) {
 	tablelist[num_tables]=rst.getString(1);
 	num_tables++;
@@ -37,8 +37,6 @@ while (rst.next()) {
 %>
 <%@ include file="common/header.jsp"%>
 <%@ include file="header.jsp"%>
-
-<script language="javascript" src="js/confirm.js" type="text/javascript"></script>
 
 <div class="row-fluid">
 
@@ -110,7 +108,7 @@ while (rst.next()) {
 						%>
 						<%=rows %>
 					</td>
-					<td>
+					<td>		 
 						<%
 						pstm = con.prepareStatement("USE "+db);
 						pstm.execute();
@@ -165,7 +163,7 @@ while (rst.next()) {
 </div>
 
 <script language="javascript"> 
-//  check for valid numeric strings
+//  check for valid numeric strings  
 function IsNumeric(value){
 	return (!/\D/.test(value));
 }
@@ -181,7 +179,7 @@ $('form[name="createtbl"]').bind('submit', function(event){
 		error.show("Please Enter Table Name!");
 		form.newtblname.focus();
 		valid = false;
-	}
+	}  
 	else if (IsNumeric(form.newtblfields.value) == false) {
 		error.show("Invalid Number of Table Columns!");
 		form.newtblfields.focus();
@@ -189,6 +187,6 @@ $('form[name="createtbl"]').bind('submit', function(event){
 	}
 	return valid;
 });
-</script>
+</script> 
 
 <%@ include file="common/footer.jsp"%>
